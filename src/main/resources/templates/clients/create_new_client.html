@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+      
+      <head>
+        <title>Source - New</title>
+    </head>
+    <body>
+        
+    	<div layout:fragment="content">
+	        
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Add New Client</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <form role="form" th:action="@{/clients}" th:object="${client}" method="post">
+                  	<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p>
+                    <!-- text input -->
+                    
+                    
+                    <div class="form-group" th:classappend="${#fields.hasErrors('udClientName')}? 'has-error'">
+                      <label>Client Name</label>
+                      <input type="text" class="form-control" name="udClientName" th:field="*{udClientName}" placeholder="Enter Source Name" th:required="required"/>
+                      <p th:if="${#fields.hasErrors('udClientName')}" th:errors="*{udClientName}" th:class="text-red">Incorrect data</p>
+                    </div>
+                    
+                      <div class="form-group" th:classappend="${#fields.hasErrors('udClientType')}? 'has-error'">
+                      <label>Payment Mode</label>
+                      <select  class="form-control" name="udClientType" th:field="*{udClientType}" placeholder="Enter Name Of Money Taker" th:required="required">
+                      <option value="1"> Money Taker </option>
+                      <option value="2"> Money Giver </option>
+                      <option value="3"> Both </option>
+                       </select>
+                      <p th:if="${#fields.hasErrors('udClientType')}" th:errors="udClientType" th:class="text-red">Incorrect data</p>
+                    </div>
+                  
+                               
+                    <div class="form-group" th:classappend="${#fields.hasErrors('udClientDescription')}? 'has-error'">
+                      <label>Source Description </label>
+                      <textarea class="form-control" name="udClientDescription" th:field="*{udClientDescription}" placeholder="Enter Source Description..." th:required="required" > </textarea>
+                      <p th:if="${#fields.hasErrors('udClientDescription')}" th:errors="udClientDescription" th:class="text-red">Incorrect data</p>
+                    </div>
+                    
+                    
+					<div class="box-footer">
+	                    <button type="submit" class="btn btn-primary">Submit</button>
+	                </div>
+                  </form>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+    	</div>
+    	
+    </body>
+    
+</html>

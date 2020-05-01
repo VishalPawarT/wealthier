@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+      
+      <head>
+        <title>Debit Transaction - New</title>
+    </head>
+    <body>
+        
+    	<div layout:fragment="content">
+	        
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Create New Debit Transaction</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <form role="form" th:action="@{/debit_management}" th:object="${debitDetails}" method="post">
+                  	<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p>
+                    <!-- text input -->
+                    
+                    
+                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionMoneyGiver')}? 'has-error'">
+                      <label>Money Given By</label>
+                      <input type="text" class="form-control" name="debTransactionMoneyGiver" th:field="*{debTransactionMoneyGiver}" placeholder="Enter Name Of Money Giver" th:required="required" />
+                      <p th:if="${#fields.hasErrors('debTransactionMoneyGiver')}" th:errors="*{debTransactionMoneyGiver}" th:class="text-red">Incorrect data</p>
+                    </div>
+                    
+                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionMoneyTaker')}? 'has-error'">
+                      <label>Money Taken By</label>
+                      <input type="text" class="form-control" name="debTransactionMoneyTaker" th:field="*{debTransactionMoneyTaker}" placeholder="Enter Name Of Money Taker" th:required="required" />
+                      <p th:if="${#fields.hasErrors('debTransactionMoneyTaker')}" th:errors="debTransactionMoneyTaker" th:class="text-red">Incorrect data</p>
+                    </div>
+                    
+                    
+                    
+                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionDate')}? 'has-error'">
+                      <label>Transaction Date</label>
+                      <input type="date" class="form-control" name="debTransactionDate" th:field="*{debTransactionDate}" placeholder="Enter Name Of Money Taker" th:required="required" />
+                      <p th:if="${#fields.hasErrors('debTransactionDate')}" th:errors="debTransactionDate" th:class="text-red">Incorrect data</p>
+                    </div>
+                    
+                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionPaymentMode')}? 'has-error'">
+                      <label>Payment Mode</label>
+                      <select  class="form-control" name="debTransactionPaymentMode" th:field="*{debTransactionPaymentMode}" placeholder="Enter Name Of Money Taker" th:required="required" >
+                      <option value="cash"> Cash </option>
+                      <option value="cheque"> Cheque </option>
+                       </select>
+                      <p th:if="${#fields.hasErrors('debTransactionPaymentMode')}" th:errors="debTransactionPaymentMode" th:class="text-red">Incorrect data</p>
+                    </div>
+                   
+                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionDescription')}? 'has-error'">
+                      <label>Transaction Description </label>
+                      <textarea class="form-control" name="debTransactionDescription" th:field="*{debTransactionDescription}" placeholder="Enter Transaction Description..." th:required="required" > </textarea>
+                      <p th:if="${#fields.hasErrors('debTransactionDescription')}" th:errors="debTransactionDescription" th:class="text-red">Incorrect data</p>
+                    </div>
+                    
+                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionAmount')}? 'has-error'">
+                      <label>Transaction Amount</label>
+                      <input type="number" class="form-control" name="debTransactionAmount" th:field="*{debTransactionAmount}" placeholder="Enter Transaction Amount" th:required="required" />
+                      <p th:if="${#fields.hasErrors('debTransactionAmount')}" th:errors="debTransactionAmount" th:class="text-red">Incorrect data</p>
+                    </div>
+                    
+                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionSourceId')}? 'has-error'">
+                      <label>Select Source</label>
+                      <select  class="form-control" name="debTransactionSourceId" th:field="*{debTransactionSourceId}" onchange="selectSource(this)" placeholder="Select Source" th:required="required" >
+                      
+                      
+                      		<option value=""  th:selected="selected" > Select Source</option>                      
+                   		<option th:each="source : ${sourceList}"
+                				th:value="${source.sourceId}"
+                				th:text="${source.sourceName}"></option>
+                      
+                       </select>
+                      <p th:if="${#fields.hasErrors('debTransactionSourceId')}" th:errors="debTransactionSourceId" th:class="text-red">Incorrect data</p>
+                    </div>
+                    
+                    
+                    
+                    <input type="hidden" name="debTransactionSourceName" id="sourceName"/>
+                    
+                    
+         <!--            
+                    <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
+                      <label>Name</label>
+                      <input type="text" class="form-control" name="name" th:field="*{name}" placeholder="Enter Name Of Money Taker"/>
+                      <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="text-red">Incorrect data</p>
+                    </div>
+                    
+                    <div class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
+                      <label>Description</label>
+                      <textarea class="form-control" rows="3" name="description" th:field="*{description}" placeholder="Enter Name Of Money Taker"></textarea>
+                      <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:class="text-red">Incorrect data</p>
+                    </div>
+					
+					<div class="form-group" th:classappend="${#fields.hasErrors('displayOrder')}? 'has-error'">
+                      <label>Display Order</label>
+                      <input type="number" class="form-control" name="displayOrder" th:field="*{displayOrder}" placeholder="Enter display order number"/>
+                      <p th:if="${#fields.hasErrors('displayOrder')}" th:errors="*{displayOrder}" th:class="text-red">Incorrect data</p>
+                    </div> -->
+					    				
+					<div class="box-footer">
+	                    <button type="submit" class="btn btn-primary">Submit</button>
+	                </div>
+                  </form>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+    	</div>
+    	
+    </body>
+    
+</html>

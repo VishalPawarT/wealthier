@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+      
+      <head>
+        <title>Home</title>
+        
+    </head>
+    <body>
+    	<div layout:fragment="pageHeader">
+        <section class="content-header">
+        	
+        </section>
+        </div>
+    	<div layout:fragment="content">
+
+			
+			<table class="table table-striped">  
+  				<tr><th>Total Credit Amount </th><th>Total Debit Amount</th><th>Total Balance Amount</th></tr>  
+  				<tr><td th:text="${totalCreditAmount}">total credit amount</td><td th:text="${totalDebitAmount}" >total Debit Amount</td><td th:text="${totalCreditAmount - totalDebitAmount}"></td></tr>  
+  			</table>
+			
+			 <div class="panel panel-default" style="overflow: auto">
+  				<div class="panel-body">
+  				
+  					<select class="dropdown" id="dd">
+    					<option value="" selected="selected">Select Chart</option>
+    					<option value="cr">Total Credit DayWise</option>
+    					<option value="deb">Total Debit DayWise</option>
+					</select>
+    				
+    				<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+  				</div>
+  			<div class="panel-footer">Panel footer</div>
+		   </div>
+			
+				
+		
+    		<!-- <div class="card" style="width: 18rem;">
+  				<div class="card-body">
+    				<h5 class="card-title">Total Credit Amount</h5>
+   					<p class="card-text">89324</p>
+    				<a href="#" class="btn btn-primary">Go somewhere</a>
+  				</div>
+  				
+  				<div class="card-body">
+    				<h5 class="card-title">Total Debit Amount</h5>
+   					<p class="card-text">349898</p>
+    				<a href="#" class="btn btn-primary">Go somewhere</a>
+  				</div>
+  				
+			</div> -->
+			
+				
+			
+		</div>
+    	
+    </body>
+
+</html>
