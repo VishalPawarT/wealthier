@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      >
+      
+      <head>
+        <title>Product - New</title>
+    </head>
+    <body>
+        
+        <form action="/biocreation/product" method="post">
+        
+        <label for="cars">Choose a Product Category:</label>
+
+<select id="product_category_name" name ="product_category_name" required="required">
+         <option th:each="cat : ${categories}" th:value="${cat.product_category_id + 'XXX' + cat.product_category_name}" th:text="${cat.product_category_name}"></option>
+</select>
+        <br>
+  <label for="fname">product_name</label><br>
+  <input type="text" id="product_name" name="product_name" value="product_name"><br>
+  
+  <label for="fname">product_image</label><br>
+  <input type="text" id="product_image" name="product_image" value="images/products/TRIAZO N.jpg"><br>
+  
+  <label for="lname">product_info</label><br>
+  <textarea id="product_info" name="product_info" value="product_info"></textarea><br><br>
+  <input type="submit" value="Submit">
+</form> 
+    	
+    </body>
+    
+</html>

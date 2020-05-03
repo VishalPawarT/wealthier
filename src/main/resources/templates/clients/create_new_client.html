@@ -26,11 +26,11 @@
                       <p th:if="${#fields.hasErrors('udClientName')}" th:errors="*{udClientName}" th:class="text-red">Incorrect data</p>
                     </div>
                     
-                      <div class="form-group" th:classappend="${#fields.hasErrors('udClientType')}? 'has-error'">
+                      <div class="form-group" th:classappend="${#fields.hasErrors('udClientType')}? 'has-error'" style="display:none">
                       <label>Payment Mode</label>
                       <select  class="form-control" name="udClientType" th:field="*{udClientType}" placeholder="Enter Name Of Money Taker" th:required="required">
-                      <option value="1"> Money Taker </option>
-                      <option value="2"> Money Giver </option>
+                     <!--  <option value="1"> Money Taker </option>
+                      <option value="2"> Money Giver </option> -->
                       <option value="3"> Both </option>
                        </select>
                       <p th:if="${#fields.hasErrors('udClientType')}" th:errors="udClientType" th:class="text-red">Incorrect data</p>
@@ -38,7 +38,7 @@
                   
                                
                     <div class="form-group" th:classappend="${#fields.hasErrors('udClientDescription')}? 'has-error'">
-                      <label>Source Description </label>
+                      <label>Client's Description </label>
                       <textarea class="form-control" name="udClientDescription" th:field="*{udClientDescription}" placeholder="Enter Source Description..." th:required="required" > </textarea>
                       <p th:if="${#fields.hasErrors('udClientDescription')}" th:errors="udClientDescription" th:class="text-red">Incorrect data</p>
                     </div>

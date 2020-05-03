@@ -41,8 +41,8 @@
             	<th>Credit Voucher Id</th>
             	<th>User Id</th>
                 <th>Given Amount</th>
-                <th>Money Giver</th>
-                <th>Money Taker</th>
+                <th>Customer Name</th>
+              <!--   <th>Money Taker</th> -->
                 <th>Transaction Date</th>
                 <th>Source</th>
                 <th>Transaction Status</th>
@@ -55,8 +55,8 @@
              	<td th:text="${cr.crTransactionUserId}"></td>
                 <td th:text="${cr.crTransactionAmount}"></td>
                 <td th:text="${cr.crTransactionMoneyGiver}"></td>
-                <td th:text="${cr.crTransactionMoneyTaker}"></td>
-                <td th:text="${cr.crTransactionDate}"></td>
+<!--                 <td th:text="${cr.crTransactionMoneyTaker}"></td>
+ -->                <td th:text="${cr.crTransactionDate}"></td>
                 <td th:text="${cr.crTransactionSourceName}"></td>
                 <td th:text='${cr.crTransactionPassed == 1 ? "Passed": cr.crTransactionPassed == 0 ? "Pending":"Rejected" }'></td>
                 <td>
@@ -78,9 +78,9 @@
             	<th>Credit Voucher Id</th>
             	<th>User Id</th>
                 <th>Given Amount</th>
-                <th>Money Giver</th>
-                <th>Money Taker</th>
-                <th>Transaction Date</th>
+                <th>Customer Name</th>
+<!--                 <th>Money Taker</th>
+ -->                <th>Transaction Date</th>
                 <th>Source</th>
                 <th>Transaction Status</th>
                 <th>Actions</th>

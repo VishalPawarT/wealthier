@@ -107,6 +107,13 @@ public class CreditManagementController extends JCartAdminBaseController
 		if(result.hasErrors()){
 			return viewPrefix+"create_credit_transaction";
 		}
+		
+		int clientId = Integer.parseInt(creditDetails.getCrTransactionMoneyGiver());
+		
+		var info = userDefinedClilentsHome.findById(clientId);
+		
+		creditDetails.setCrClientId(clientId);
+		creditDetails.setCrTransactionMoneyGiver(info.getUdClientName());
 		creditDetails.setCrTransactionUserId(currentUser.getId());
 		creditDetails.setCrTransactionAccountId(currentUser.getAccountId());
 		log.info("credit transaction information got {} ", creditDetails);

@@ -20,46 +20,34 @@
                     <!-- text input -->
                     
                     
-                    <div class="form-group" th:classappend="${#fields.hasErrors('crTransactionMoneyGiver')}? 'has-error'">
+                    <!-- <div class="form-group" th:classappend="${#fields.hasErrors('crTransactionMoneyGiver')}? 'has-error'">
                       <label>Money Given By</label>
                       <input type="text" class="form-control" name="crTransactionMoneyGiver" th:field="*{crTransactionMoneyGiver}" placeholder="Enter Name Of Money Giver" th:required="required"  />
                       <p th:if="${#fields.hasErrors('crTransactionMoneyGiver')}" th:errors="*{crTransactionMoneyGiver}" th:class="text-red">Incorrect data</p>
-                    </div>
+                    </div> -->
                     
-                    <div class="form-group" th:classappend="${#fields.hasErrors('crTransactionMoneyTaker')}? 'has-error'">
-                      <label>Money Taken By</label>
-                      <input type="text" class="form-control" name="crTransactionMoneyTaker" th:field="*{crTransactionMoneyTaker}" placeholder="Enter Name Of Money Taker" th:required="required" />
-                      <p th:if="${#fields.hasErrors('crTransactionMoneyTaker')}" th:errors="crTransactionMoneyTaker" th:class="text-red">Incorrect data</p>
-                    </div>
-                    
-                    <div class="form-group" th:classappend="${#fields.hasErrors('crTransactionPaymentMode')}? 'has-error'">
-                      <label>Payment Mode</label>
-                      <select  class="form-control" name="crTransactionPaymentMode" th:field="*{crTransactionPaymentMode}" placeholder="Enter Name Of Money Taker" th:required="required">
-                      <option value="cash"> Cash </option>
-                      <option value="cheque"> Cheque </option>
-                       </select>
-                      <p th:if="${#fields.hasErrors('crTransactionPaymentMode')}" th:errors="crTransactionPaymentMode" th:class="text-red">Incorrect data</p>
-                    </div>
                    
-                    <div class="form-group" th:classappend="${#fields.hasErrors('crTransactionDescription')}? 'has-error'">
-                      <label>Transaction Description </label>
-                      <textarea class="form-control" name="crTransactionDescription" th:field="*{crTransactionDescription}" placeholder="Enter Transaction Description..." th:required="required" > </textarea>
-                      <p th:if="${#fields.hasErrors('crTransactionDescription')}" th:errors="crTransactionDescription" th:class="text-red">Incorrect data</p>
+                   <div class="form-group" th:classappend="${#fields.hasErrors('crTransactionMoneyGiver')}? 'has-error'">
+                      <label>Select Customer</label>
+                      <select  class="form-control" name="crTransactionMoneyGiver" th:field="*{crTransactionMoneyGiver}" placeholder="Select Source" th:required="required">
+							<option th:each="client : ${udClientList}"
+                				th:value="${client.udClientId}"
+                				th:text="${client.udClientName}"></option>
+                   
+                   </select>
+                      <p th:if="${#fields.hasErrors('crTransactionMoneyGiver')}" th:errors="crTransactionMoneyGiver" th:class="text-red">Incorrect data</p>
                     </div>
-                    
-                    <div class="form-group" th:classappend="${#fields.hasErrors('crTransactionDate')}? 'has-error'">
-                      <label>Transaction Date</label>
-                      <input type="date" class="form-control" name="crTransactionDate" th:field="*{crTransactionDate}" placeholder="Enter Name Of Money Taker" th:required="required" />
-                      <p th:if="${#fields.hasErrors('crTransactionDate')}" th:errors="crTransactionDate" th:class="text-red">Incorrect data</p>
-                    </div>
-                    
-                    <div class="form-group" th:classappend="${#fields.hasErrors('crTransactionAmount')}? 'has-error'">
+              
+              
+              		 <div class="form-group" th:classappend="${#fields.hasErrors('crTransactionAmount')}? 'has-error'">
                       <label>Transaction Amount</label>
                       <input type="number" class="form-control" name="crTransactionAmount" th:field="*{crTransactionAmount}" placeholder="Enter Transaction Amount" th:required="required" />
                       <p th:if="${#fields.hasErrors('crTransactionAmount')}" th:errors="crTransactionAmount" th:class="text-red">Incorrect data</p>
                     </div>
-                    
-                    <div class="form-group" th:classappend="${#fields.hasErrors('crTransacionSourceId')}? 'has-error'">
+                   
+                   
+                   
+                                       <div class="form-group" th:classappend="${#fields.hasErrors('crTransacionSourceId')}? 'has-error'">
                       <label>Select Source</label>
                       <select  class="form-control" name="crTransacionSourceId" th:field="*{crTransacionSourceId}" onchange="selectSource(this)" placeholder="Select Source" th:required="required">
 
@@ -73,7 +61,37 @@
                     </div>
                     
                     <input type="hidden" name="crTransactionSourceName" id="sourceName"/>
+                   
+                    <!--  <div class="form-group" th:classappend="${#fields.hasErrors('crTransactionMoneyTaker')}? 'has-error'">
+                      <label>Money Taken By</label>
+                      <input type="text" class="form-control" name="crTransactionMoneyTaker" th:field="*{crTransactionMoneyTaker}" placeholder="Enter Name Of Money Taker" th:required="required" />
+                      <p th:if="${#fields.hasErrors('crTransactionMoneyTaker')}" th:errors="crTransactionMoneyTaker" th:class="text-red">Incorrect data</p>
+                    </div> -->
                     
+                    <div class="form-group" th:classappend="${#fields.hasErrors('crTransactionPaymentMode')}? 'has-error'">
+                      <label>Payment Mode</label>
+                      <select  class="form-control" name="crTransactionPaymentMode" th:field="*{crTransactionPaymentMode}" placeholder="Enter Name Of Money Taker" th:required="required">
+                      <option value="cash"> Cash </option>
+                      <option value="cheque"> Cheque </option>
+                       </select>
+                      <p th:if="${#fields.hasErrors('crTransactionPaymentMode')}" th:errors="crTransactionPaymentMode" th:class="text-red">Incorrect data</p>
+                    </div>
+                   
+                   
+                    
+                    <div class="form-group" th:classappend="${#fields.hasErrors('crTransactionDate')}? 'has-error'">
+                      <label>Transaction Date</label>
+                      <input type="date" class="form-control" name="crTransactionDate" th:id="datePicker" th:field="*{crTransactionDate}" placeholder="Enter Name Of Money Taker" th:required="required" />
+                      <p th:if="${#fields.hasErrors('crTransactionDate')}" th:errors="crTransactionDate" th:class="text-red">Incorrect data</p>
+                    </div>
+                    
+                    
+
+                     <div class="form-group" th:classappend="${#fields.hasErrors('crTransactionDescription')}? 'has-error'">
+                      <label>Transaction Description </label>
+                      <textarea class="form-control" name="crTransactionDescription" th:field="*{crTransactionDescription}" placeholder="Enter Transaction Description..." > </textarea>
+                      <p th:if="${#fields.hasErrors('crTransactionDescription')}" th:errors="crTransactionDescription" th:class="text-red">Incorrect data</p>
+                    </div>
          <!--            
                     <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
                       <label>Name</label>

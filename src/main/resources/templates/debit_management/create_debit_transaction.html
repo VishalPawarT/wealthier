@@ -20,46 +20,38 @@
                     <!-- text input -->
                     
                     
-                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionMoneyGiver')}? 'has-error'">
+                    <!-- <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionMoneyGiver')}? 'has-error'">
                       <label>Money Given By</label>
                       <input type="text" class="form-control" name="debTransactionMoneyGiver" th:field="*{debTransactionMoneyGiver}" placeholder="Enter Name Of Money Giver" th:required="required" />
                       <p th:if="${#fields.hasErrors('debTransactionMoneyGiver')}" th:errors="*{debTransactionMoneyGiver}" th:class="text-red">Incorrect data</p>
                     </div>
                     
-                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionMoneyTaker')}? 'has-error'">
+                     -->
+                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionMoneyGiver')}? 'has-error'">
+                      <label>Select Customer</label>
+                      <select  class="form-control" name="debTransactionMoneyGiver" th:field="*{debTransactionMoneyGiver}" placeholder="Select Customer" th:required="required">
+							<option th:each="client : ${udClientList}"
+                				th:value="${client.udClientId}"
+                				th:text="${client.udClientName}"></option>
+                   
+                   </select>
+                      <p th:if="${#fields.hasErrors('debTransactionMoneyGiver')}" th:errors="debTransactionMoneyGiver" th:class="text-red">Incorrect data</p>
+                    </div>
+                    
+                    <!-- <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionMoneyTaker')}? 'has-error'">
                       <label>Money Taken By</label>
                       <input type="text" class="form-control" name="debTransactionMoneyTaker" th:field="*{debTransactionMoneyTaker}" placeholder="Enter Name Of Money Taker" th:required="required" />
                       <p th:if="${#fields.hasErrors('debTransactionMoneyTaker')}" th:errors="debTransactionMoneyTaker" th:class="text-red">Incorrect data</p>
-                    </div>
+                    </div> -->
                     
-                    
-                    
-                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionDate')}? 'has-error'">
-                      <label>Transaction Date</label>
-                      <input type="date" class="form-control" name="debTransactionDate" th:field="*{debTransactionDate}" placeholder="Enter Name Of Money Taker" th:required="required" />
-                      <p th:if="${#fields.hasErrors('debTransactionDate')}" th:errors="debTransactionDate" th:class="text-red">Incorrect data</p>
-                    </div>
-                    
-                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionPaymentMode')}? 'has-error'">
-                      <label>Payment Mode</label>
-                      <select  class="form-control" name="debTransactionPaymentMode" th:field="*{debTransactionPaymentMode}" placeholder="Enter Name Of Money Taker" th:required="required" >
-                      <option value="cash"> Cash </option>
-                      <option value="cheque"> Cheque </option>
-                       </select>
-                      <p th:if="${#fields.hasErrors('debTransactionPaymentMode')}" th:errors="debTransactionPaymentMode" th:class="text-red">Incorrect data</p>
-                    </div>
-                   
-                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionDescription')}? 'has-error'">
-                      <label>Transaction Description </label>
-                      <textarea class="form-control" name="debTransactionDescription" th:field="*{debTransactionDescription}" placeholder="Enter Transaction Description..." th:required="required" > </textarea>
-                      <p th:if="${#fields.hasErrors('debTransactionDescription')}" th:errors="debTransactionDescription" th:class="text-red">Incorrect data</p>
-                    </div>
-                    
-                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionAmount')}? 'has-error'">
+                       <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionAmount')}? 'has-error'">
                       <label>Transaction Amount</label>
-                      <input type="number" class="form-control" name="debTransactionAmount" th:field="*{debTransactionAmount}" placeholder="Enter Transaction Amount" th:required="required" />
+                      <input type="number" class="form-control" name="debTransactionAmount" th:id="datePicker" th:field="*{debTransactionAmount}" placeholder="Enter Transaction Amount" th:required="required" />
                       <p th:if="${#fields.hasErrors('debTransactionAmount')}" th:errors="debTransactionAmount" th:class="text-red">Incorrect data</p>
                     </div>
+                    
+                    
+                    
                     
                     <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionSourceId')}? 'has-error'">
                       <label>Select Source</label>
@@ -78,7 +70,33 @@
                     
                     
                     <input type="hidden" name="debTransactionSourceName" id="sourceName"/>
+                
                     
+                    
+                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionPaymentMode')}? 'has-error'">
+                      <label>Payment Mode</label>
+                      <select  class="form-control" name="debTransactionPaymentMode" th:field="*{debTransactionPaymentMode}" placeholder="Enter Name Of Money Taker" th:required="required" >
+                      <option value="cash"> Cash </option>
+                      <option value="cheque"> Cheque </option>
+                       </select>
+                      <p th:if="${#fields.hasErrors('debTransactionPaymentMode')}" th:errors="debTransactionPaymentMode" th:class="text-red">Incorrect data</p>
+                    </div>
+                   
+                   
+                   <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionDate')}? 'has-error'">
+                      <label>Transaction Date</label>
+                      <input type="date" class="form-control" name="debTransactionDate" th:id="datePicker" th:field="*{debTransactionDate}" placeholder="Enter Name Of Money Taker" value="2020-05-05" th:required="required" />
+                      <p th:if="${#fields.hasErrors('debTransactionDate')}" th:errors="debTransactionDate" th:class="text-red">Incorrect data</p>
+                    </div>
+                   
+                   
+                    <div class="form-group" th:classappend="${#fields.hasErrors('debTransactionDescription')}? 'has-error'">
+                      <label>Transaction Description </label>
+                      <textarea class="form-control" name="debTransactionDescription" th:field="*{debTransactionDescription}" placeholder="Enter Transaction Description..."> </textarea>
+                      <p th:if="${#fields.hasErrors('debTransactionDescription')}" th:errors="debTransactionDescription" th:class="text-red">Incorrect data</p>
+                    </div>
+                    
+                     
                     
          <!--            
                     <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">

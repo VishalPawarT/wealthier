@@ -46,8 +46,8 @@
             <tr>
             	<th>Debit Voucher Id</th>
                 <th>Money Giver</th>
-                <th>Money Taker</th>
-                <th>Given Amount</th>
+<!--                 <th>Money Taker</th>
+ -->                <th>Given Amount</th>
                 <th>Transaction Date</th>
                 <th>Source</th>
             </tr>
@@ -56,8 +56,8 @@
              <tr th:each="deb,iterStat : ${debitList}">
              	<td th:text="${deb.debTransactionId}"></td>
                 <td th:text="${deb.debTransactionMoneyGiver}"></td>
-                <td th:text="${deb.debTransactionMoneyTaker}"></td>
-                <td th:text="${deb.debTransactionAmount}"></td>
+<!--                 <td th:text="${deb.debTransactionMoneyTaker}"></td>
+ -->                <td th:text="${deb.debTransactionAmount}"></td>
                 <td th:text="${deb.debTransactionDate}"></td>
                 <td th:text="${deb.debTransactionSourceName}"></td>
             </tr>
@@ -65,8 +65,9 @@
         </tbody>
         <tfoot>
             <tr>
+            	<th>Debit Voucher Id</th>
             	<th>Money Giver</th>
-                <th>Money Taker</th>
+                <!-- <th>Money Taker</th> -->
                 <th>Given Amount</th>
                 <th>Transaction Date</th>
                 <th>Source</th>

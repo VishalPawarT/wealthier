@@ -207,9 +207,15 @@
             new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'mr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
           }
          
+     
                   
 		var datatable;
          $(document).ready(function() {
+        	 
+         	var today = new Date();
+         	var dateGot = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+         	document.getElementById("datePicker").value = dateGot;
+ 	 
         	 datatable = $('#example').DataTable( {
 
             	dom: 'Bfrtip',

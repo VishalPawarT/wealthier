@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.techames.wealthier.db.dao.DebitDetailsHome;
+import com.techames.wealthier.db.dao.UserDefinedClientsHome;
 import com.techames.wealthier.db.dao.UserDefinedSourcesHome;
 import com.techames.wealthier.db.model.AppUserDetails;
 import com.techames.wealthier.db.model.DebitDetails;
 import com.techames.wealthier.db.model.Role;
+import com.techames.wealthier.db.model.UserDefinedClients;
 import com.techames.wealthier.db.model.UserDefinedSources;
 import com.techames.wealthier.web.security.SecurityUtil;
 
@@ -43,6 +45,8 @@ public class DebitManagementController extends JCartAdminBaseController
 	@Autowired DebitDetailsHome debitDetailsHome;
 	
 	@Autowired UserDefinedSourcesHome userDefinedSourcesHome;
+	
+	@Autowired UserDefinedClientsHome userDefinedClilentsHome;
 	
 	@Override
 	protected String getHeaderTitle()
@@ -70,6 +74,9 @@ public class DebitManagementController extends JCartAdminBaseController
 		AppUserDetails currentUser = (AppUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		DebitDetails category = new DebitDetails();
 		List<UserDefinedSources> sources = userDefinedSourcesHome.getAllSourcesByAccountId(currentUser.getAccountId());
+		List<UserDefinedClients> userDefinedClientList = userDefinedClilentsHome.getAllClientsByAccountIdAndType(currentUser.getAccountId(),1,3);
+		
+		model.addAttribute("udClientList",userDefinedClientList);
 		model.addAttribute("sourceList", sources);
 		model.addAttribute("debitDetails",category);
 		return viewPrefix+"create_debit_transaction";
@@ -84,6 +91,13 @@ public class DebitManagementController extends JCartAdminBaseController
 		if(result.hasErrors()){
 			return viewPrefix+"create_debit_transaction";
 		}
+		
+		int clientId = Integer.parseInt(debitDetails.getDebTransactionMoneyGiver());
+		
+		var info = userDefinedClilentsHome.findById(clientId);
+		
+		debitDetails.setDebClientId(clientId);
+		debitDetails.setDebTransactionMoneyGiver(info.getUdClientName());
 		debitDetails.setDebTransactionUserId(currentUser.getId());
 		debitDetails.setDebTransactionAccountId(currentUser.getAccountId());
 		log.info("credit transaction information got {} ", debitDetails);
