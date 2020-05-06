@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
     						th:href="@{https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css}"/>
     <link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css" th:href="@{/assets/dist/css/AdminLTE.min.css}"/>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
@@ -20,6 +21,8 @@
      <link rel="stylesheet" href="assets/datatables/datatables.min.css" th:href="@{/assets/datatables/datatables.min.css}"/>
     
     <link rel="stylesheet" href="assets/dist/css/skins/skin-blue.min.css" th:href="@{/assets/dist/css/skins/skin-blue.min.css}"/>
+
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -123,22 +126,22 @@
           <ul class="sidebar-menu">
             <!-- <li class="header">HEADER</li> -->
             <!-- Optionally, you can add icons to the links -->
-            <li th:class="${CURRENT_MENU == 'Home'}? 'active' : ''" ><a href="#" th:href="@{'/home'}"><i class="fa fa-home"></i> <span >DashBoard</span></a></li>
+            <li th:class="${CURRENT_MENU == 'Home'}? 'active' : ''" ><a sec:authorize="@permissionSecurityService.hasPrivilege('DASHBOARD_READ')" href="#" th:href="@{'/home'}"><i class="fa fa-home"></i> <span >DashBoard</span></a></li>
            <!--  <li th:class="${CURRENT_MENU == 'Categories'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_CATEGORIES')"><a href="#" th:href="@{'/credit_management'}"><i class="fa fa-folder-open"></i> <span>Credit Reports</span></a></li> -->
             
-            <li th:class="${CURRENT_MENU == 'Categories'}? 'active' : ''"  ><a href="#" th:href="@{'/reports'}"><i class="fa fa-folder-open"></i> <span >Reports</span></a></li>
+            <li th:class="${CURRENT_MENU == 'Categories'}? 'active' : ''"  ><a sec:authorize="@permissionSecurityService.hasPrivilege('REPORT_READ')" href="#" th:href="@{'/reports'}"><i class="fa fa-folder-open"></i> <span >Reports</span></a></li>
             
-            <li th:class="${CURRENT_MENU == 'Categories'}? 'active' : ''"  ><a href="#" th:href="@{'/credit_management/new'}"><i class="fa fa-folder-open"></i> <span>Add Credit Transaction</span></a></li>
+            <li th:class="${CURRENT_MENU == 'Categories'}? 'active' : ''"  ><a sec:authorize="@permissionSecurityService.hasPrivilege('CREDIT_CREATE')" href="#" th:href="@{'/credit_management/new'}"><i class="fa fa-folder-open"></i> <span>Add Credit Transaction</span></a></li>
             
            <!--  <li th:class="${CURRENT_MENU == 'Products'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_PRODUCTS')"><a href="#" th:href="@{'/debit_management'}"><i class="fa fa-file"></i> <span>Debit Reports</span></a></li> -->
-            <li th:class="${CURRENT_MENU == 'Products'}? 'active' : ''" ><a href="#" th:href="@{'/debit_management/new'}"><i class="fa fa-file"></i> <span>Add Debit Transaction</span></a></li>
-            <li th:class="${CURRENT_MENU == 'Sources'}? 'active' : ''"  ><a href="#" th:href="@{'/sources'}"><i class="fa fa-cart-arrow-down"></i> <span>Add New Source </span></a></li>
-            <li th:class="${CURRENT_MENU == 'Sources'}? 'active' : ''"  ><a href="#" th:href="@{'/clients'}"><i class="fa fa-cart-arrow-down"></i> <span>Add New clients </span></a></li>
+            <li th:class="${CURRENT_MENU == 'Products'}? 'active' : ''" ><a sec:authorize="@permissionSecurityService.hasPrivilege('DEBIT_CREATE')" href="#" th:href="@{'/debit_management/new'}"><i class="fa fa-file"></i> <span>Add Debit Transaction</span></a></li>
+           <!--  <li th:class="${CURRENT_MENU == 'Sources'}? 'active' : ''"  ><a href="#" th:href="@{'/sources'}"><i class="fa fa-cart-arrow-down"></i> <span>Add New Source </span></a></li> -->
+            <li th:class="${CURRENT_MENU == 'Sources'}? 'active' : ''"  ><a sec:authorize="@permissionSecurityService.hasPrivilege('CLIENT_READ')" href="#" th:href="@{'/clients'}"><i class="fa fa-cart-arrow-down"></i> <span>Add New clients </span></a></li>
            <!--  <li th:class="${CURRENT_MENU == 'Customers'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_CUSTOMERS')"><a href="#" th:href="@{'/customers'}"><i class="fa fa-smile-o"></i> <span>Customers</span></a></li> -->
-            <li th:class="${CURRENT_MENU == 'Users'}? 'active' : ''"  ><a href="#" th:href="@{'/users'}"><i class="fa fa-users"></i> Users</a></li>
-            <li th:class="${CURRENT_MENU == 'Roles'}? 'active' : ''"  ><a href="#" th:href="@{'/roles'}"><i class="fa fa-user"></i> Roles</a></li>
-            <li th:class="${CURRENT_MENU == 'Permissions'}? 'active' : ''"  ><a href="#" th:href="@{'/permissions'}"><i class="fa fa-shield"></i> Permissions</a></li>
-        	<li>nbsp;<div class="mx-auto" id="google_translate_element"></div></li>    
+            <li th:class="${CURRENT_MENU == 'Users'}? 'active' : ''"  ><a sec:authorize="@permissionSecurityService.hasPrivilege('USER_CREATE')" href="#" th:href="@{'/users'}"><i class="fa fa-users"></i> Users</a></li>
+            <li th:class="${CURRENT_MENU == 'Roles'}? 'active' : ''"  ><a sec:authorize="@permissionSecurityService.hasPrivilege('ROLE_CREATE')" href="#" th:href="@{'/roles'}"><i class="fa fa-user"></i> Roles</a></li>
+            <li th:class="${CURRENT_MENU == 'Permissions'}? 'active' : ''"  ><a sec:authorize="@permissionSecurityService.hasPrivilege('PERMISSION_CREATE')" href="#" th:href="@{'/permissions'}"><i class="fa fa-shield"></i> Permissions</a></li>
+        	<!-- <li>nbsp;<div class="mx-auto" id="google_translate_element"></div></li> -->    
           </ul><!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->
@@ -192,30 +195,39 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script th:src="@{'/assets/bootstrap/js/bootstrap.min.js'}"></script>
     <script th:src="@{'/assets/dist/js/app.min.js'}"></script>
-            <script th:src="@{'/assets/datatables/datatables.min.js'}"></script>
+    <script th:src="@{'/assets/datatables/datatables.min.js'}"></script>
       
     	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>    
-            
+       <!--  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
+       <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
   </body>
   
           <script>
 
 
           
-          function googleTranslateElementInit() {
+         /*  function googleTranslateElementInit() {
             new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'mr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-          }
+          } */
          
      
                   
 		var datatable;
          $(document).ready(function() {
         	 
+        	 $('.js-example-basic-single').select2({
+        		 placeholder: 'Select a Customer',
+        		 allowClear: true
+        	 });
+        	 
          	var today = new Date();
          	var dateGot = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
-         	document.getElementById("datePicker").value = dateGot;
- 	 
+         	try {
+         		document.getElementById("datePicker").value = dateGot;
+         	} catch(err) {
+         		
+         	}
+         	
         	 datatable = $('#example').DataTable( {
 
             	dom: 'Bfrtip',
@@ -262,7 +274,7 @@
          
                     // Total over all pages
                     total = api
-                        .column( 2 )
+                        .column( 1)
                         .data()
                         .reduce( function (a, b) {
                             return intVal(a) + intVal(b);
@@ -270,14 +282,14 @@
          
                     // Total over this page
                     pageTotal = api
-                        .column( 2, { page: 'current'} )
+                        .column( 1, { page: 'current'} )
                         .data()
                         .reduce( function (a, b) {
                             return intVal(a) + intVal(b);
                         }, 0 );
          
                     // Update footer
-                    $( api.column( 2 ).footer() ).html(
+                    $( api.column( 1 ).footer() ).html(
                         '₹'+pageTotal +' ( ₹'+ total +' total)'
                     );
                 }
@@ -367,7 +379,6 @@
 					  for(var i in jsonResp) {
 					  	var xVal = jsonResp[i].date;
 						var yVal = jsonResp[i].amount;
-						alert('value got' + xVal + yVal);
 						chart.options.data[0].dataPoints.push({x: new Date(xVal), y: yVal});
 					  }
 					  chart.render();
@@ -382,8 +393,7 @@
             var e = document.getElementById("reportBar");
         	var selected = e.options[e.selectedIndex].value;
 			var sourceName = e.options[e.selectedIndex].innerText;
-			alert('we got' + sourceName);
-        	var sourceId = selected;
+			var sourceId = selected;
         	var url = 'getSourceWiseReports?sourceInfo=sourceId1XXXsourceName1';
         	var url = url.replace('sourceName1',sourceName).replace('sourceId1',sourceId);
     		$.ajax({
@@ -425,11 +435,46 @@
 		var sourceName = $(element).find("option:selected").text();
 		$('#sourceName').val(sourceName);
 	}
+	
+	function saveCreditEditData() {
+		if(transId != null) {
+			let creditData = {
+					"transId" : transId,
+					"amount" : $('#crTransactionAmountPass').val(),
+					"transDate" : $('#crTransactionDatePass').val()
+			}	
+			console.log('Posting data', creditData);
+			var jqxhr = $.post( "example.php", function() {
+				  alert( "success" );
+				})
+				  .done(function() {
+				    
+				  })
+				  .fail(function() {
+				    
+				  })
+				  .always(function() {
+					  $('#myModal').modal("toggle");
+				  });
+				 
+				// Perform other work here ...
+				 
+				// Set another completion function for the request above
+				jqxhr.always(function() {
+				  
+				});
 
+			
+		}
+	}
+
+	var transId = null;
 	function showTransactionData(element) {
 		console.log($(element).parent().children());
-		var transId = $(element).parent().parent().children().eq(0).text();
-		alert('value' + transId);
+		//var transId = $(element).parent().parent().children().eq(0).text();
+		transId = $(element).attr("id");
+		creditJson = JSON.parse(creditJson);
+		console.log('creditJson', creditJson)
 		if(creditJson.hasOwnProperty(transId)) {
 			var li = creditJson[transId];
 			var transObject = li[0];
@@ -437,10 +482,18 @@
 			console.log(transObject);
 			$('#crTransactionAmountPass').val(transObject.crTransactionAmount);
 			$('#crTransactionMoneyGiverPass').val(transObject.crTransactionMoneyGiver);
-			$('#crTransactionMoneyTakerPass').val(transObject.crTransactionMoneyTaker);
-			$('#crTransactionPaymentModePass').val(transObject.crTransactionPaymentMode);
-			$('#crTransactionDescriptionPass').val(transObject.crTransactionDescription);
-			$('#crTransactionSourceNamePass').val(transObject.crTransactionSourceName);
+			
+			var today = new Date(transObject.crTransactionDate);
+			var dateGot = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+         	try {
+         		document.getElementById("crTransactionDatePass").value = dateGot;
+         	} catch(err) {
+         		
+         	}
+			//$('#crTransactionMoneyTakerPass').val(transObject.crTransactionMoneyTaker);
+			//$('#crTransactionPaymentModePass').val(transObject.crTransactionPaymentMode);
+			//$('#crTransactionDescriptionPass').val(transObject.crTransactionDescription);
+			//$('#crTransactionSourceNamePass').val(transObject.crTransactionSourceName);
 		}
     }		
 

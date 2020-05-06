@@ -8,7 +8,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +23,8 @@ public class CustomAuthentication implements AuthenticationProvider {
 	@Autowired
 	private AppUserDetailsRepository appUserDetailsRepository;
 	
-	private PasswordEncoder encoder = new BCryptPasswordEncoder();
+	@Autowired
+	private PasswordEncoder encoder;
 	
     @Override
     public boolean supports(Class<?> authentication) {
@@ -37,7 +37,7 @@ public class CustomAuthentication implements AuthenticationProvider {
 	        log.info("User name {} ", user);
 	        AppUserDetails appUser = appUserDetailsRepository.findByUsername(user);
 	        log.info("App user got {} {}", appUser, encoder.encode(password));
-	        if (appUser.getPassword() != null) {           // replace your custom code here for custom authentication
+	        if (encoder.matches(password, appUser.getPassword())) {           // replace your custom code here for custom authentication
 	            return new UsernamePasswordAuthenticationToken(appUser, appUser.getPassword(), Collections.EMPTY_LIST);
 	        } else {
 	            throw new BadCredentialsException("External system authentication failed");

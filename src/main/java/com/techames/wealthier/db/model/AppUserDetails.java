@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -18,6 +20,7 @@ import lombok.Data;
 public class AppUserDetails implements UserDetails{
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String username;
 	private String password;
@@ -28,6 +31,7 @@ public class AppUserDetails implements UserDetails{
 	//private List<Role> roles;
 	private String validationToken;
 	private int userType;
+	private String permissions;
 	
 	/**
 	 * 
@@ -36,7 +40,6 @@ public class AppUserDetails implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

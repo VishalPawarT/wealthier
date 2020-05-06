@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,6 +56,7 @@ public class DebitManagementController extends JCartAdminBaseController
 	}
 	
 	@RequestMapping(value="/debit_management", method=RequestMethod.GET)
+	@PreAuthorize("@permissionSecurityService.hasPrivilege('DEBIT_READ')")
 	public String listCategories(Model model) {
 		AppUserDetails currentUser = (AppUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		//Role role = currentUser.getRoles().get(0);
@@ -78,7 +80,7 @@ public class DebitManagementController extends JCartAdminBaseController
 		
 		model.addAttribute("udClientList",userDefinedClientList);
 		model.addAttribute("sourceList", sources);
-		model.addAttribute("debitDetails",category);
+		model.addAttribute("category",category);
 		return viewPrefix+"create_debit_transaction";
 	}
 

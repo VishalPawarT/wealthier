@@ -102,7 +102,8 @@ public class HomeController extends JCartAdminBaseController
 	public String getReports(Model model)
 	{
 		AppUserDetails currentUser = (AppUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		List<DailyBalanceSheet> dailyBalanceSheetList = creditHome.getDailyBalanceSheet(currentUser.getId());
+		List<DailyBalanceSheet> dailyBalanceSheetList = creditHome.getDailyBalanceSheetByAccountId(currentUser.getAccountId());
+		//List<DailyBalanceSheet> dailyBalanceSheetList = creditHome.getDailyBalanceSheet(currentUser.getId());
 		List<UserDefinedSources> sourceList = userDefinedSourcesHome.getAllSourcesByAccountId(currentUser.getAccountId()); 
 		model.addAttribute("sourceList", sourceList);
 		model.addAttribute("dbSheetList", dailyBalanceSheetList);

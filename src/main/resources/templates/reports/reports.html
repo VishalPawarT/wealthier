@@ -28,7 +28,7 @@
                   <a class="btn btn-sm btn-default" th:href="@{/credit_management}"><i class="fa fa-plus-circle"></i> Credit Reports</a>
                   <a class="btn btn-sm btn-default" th:href="@{/debit_management}"><i class="fa fa-plus-circle"></i> Debit Reports</a>
                   
-                  	<select id="reportBar">
+                  <!-- 	<select id="reportBar">
     					
     					<option value=""  th:selected="selected"> Select Source Wise Reports</option>                      
                    		<option th:each="source : ${sourceList}"
@@ -36,7 +36,7 @@
                 				th:text="${source.sourceName}"></option>
     					
     					
-					</select>
+					</select> -->
                   
                   
                   <div class="box-tools">
@@ -55,12 +55,12 @@
      <table id="example" class="display" style="width:100%">
         <thead>
             <tr>
-            	<th>User Id</th>
+            	<!-- <th>User Id</th> -->
                 <th>Date</th>
                 <th>Total Credit Amount</th>
                 <th>Total Debit Amount</th>
                 <th>Balance</th>
-                <th>Source</th>
+                <!-- <th>Source</th> -->
                 <!-- <th>Source</th>
                 <th>Transaction Status</th>
                 <th>Actions</th> -->
@@ -68,12 +68,12 @@
         </thead>
         <tbody id="reportTBody">
              <tr th:each="dbSheet,iterStat : ${dbSheetList}">
-             	<td th:text="${dbSheet.userId}"></td>
+             	<!-- <td th:text="${dbSheet.userId}"></td> -->
              	<td th:text="${dbSheet.transactionDate}"></td>
                 <td th:text="${dbSheet.totalCreditAmount}"></td>
                 <td th:text="${dbSheet.totalDebitAmount}"></td>
                 <td th:text="${dbSheet.balance}"></td>
-               <td>All</td>
+               <!-- <td>All</td> -->
                <!--  <td th:text='${cr.crTransactionPassed == 1 ? "Passed": cr.crTransactionPassed == 0 ? "Pending":"Rejected" }'></td> -->
                  	
             </tr>
@@ -81,12 +81,12 @@
         </tbody>
         <tfoot>
             <tr>
-            	<th>User Id</th>
+            	<!-- <th>User Id</th> -->
                 <th>Date</th>
                 <th>Total Credit Amount</th>
                 <th>Total Debit Amount</th>
                 <th>Balance</th>
-                <th>Source</th>
+                <!-- <th>Source</th> -->
             </tr>
         </tfoot>
     </table>

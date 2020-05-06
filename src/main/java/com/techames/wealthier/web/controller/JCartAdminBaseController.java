@@ -3,7 +3,10 @@
  */
 package com.techames.wealthier.web.controller;
 
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 
 
@@ -14,7 +17,9 @@ import org.springframework.context.MessageSource;
 public abstract class JCartAdminBaseController
 {
 	
-	@Autowired protected MessageSource messageSource;
+	@Autowired
+	@Qualifier("messageSource")
+	protected MessageSource messageSource;
 	
 	protected abstract String getHeaderTitle();
 	

@@ -31,10 +31,10 @@
                       <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="text-red">Incorrect data</p>
                     </div>
                     
-                    <div class="form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error'">
+                    <div class="form-group" th:classappend="${#fields.hasErrors('username')}? 'has-error'">
                       <label>Email</label>
-                      <input type="text" class="form-control" name="email" th:field="*{email}" placeholder="Enter User Email"/>
-                      <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="text-red">Incorrect data</p>
+                      <input type="text" class="form-control" name="username" th:field="*{username}" placeholder="Enter email"/>
+                      <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:class="text-red">Incorrect data</p>
                     </div>
                     
                     <div class="form-group" th:classappend="${#fields.hasErrors('password')}? 'has-error'">
@@ -42,8 +42,23 @@
                       <input type="password" class="form-control" name="password" th:field="*{password}"  placeholder="Enter password"/>
                       <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:class="text-red">Incorrect data</p>
                     </div>
+                    
+                    
+                    <div class="form-group" th:classappend="${#fields.hasErrors('permissions')}? 'has-error'">
+                      <label>Select Customer</label>
+                      <select th:oninvalid="this.setCustomValidity('Select Customer.')" multiple="multiple" th:onchange="this.setCustomValidity('')"  class="form-control js-example-basic-single" name="permissions" th:field="*{permissions}"  th:required="required">
+							<option th:value th:text></option>
+							<option th:each="permission : ${permissions}"
+                				th:value="${permission}"
+                				th:text="${permission}"></option>
+                   
+                   </select>
+                      <p th:if="${#fields.hasErrors('permissions')}" th:errors="permissions" th:class="text-red">Incorrect data</p>
+                    </div>
+              
+                    
 					
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label>Roles</label>
 						<div>
 						  <p th:each="role,rowStat : ${rolesList}">
@@ -52,7 +67,7 @@
 						  </p>
 						</div>
 						
-    				</div>
+    				</div> -->
     				
 					<div class="box-footer">
 	                    <button type="submit" class="btn btn-primary">Submit</button>

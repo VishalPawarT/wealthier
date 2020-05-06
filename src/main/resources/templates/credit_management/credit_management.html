@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      layout:decorator="layout/mainLayout">
-      
-      <head>
-      
-      <script th:inline="javascript">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	layout:decorator="layout/mainLayout">
+
+<head>
+
+<script th:inline="javascript">
 			/*<![CDATA[*/
 
     var creditJson = /*[[${creditJson}]]*/ 'default';
@@ -13,212 +14,187 @@
 
 /*]]>*/
 </script>
-      
-     
-        <title>Categories</title>
-    </head>
-    <body>
-        
-    	<div layout:fragment="content">
-	        <div class="row">
-            <div class="col-md-12">
-              <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title">List of Categories</h3>
-                  <div class="box-tools">
-                   <!--  <div class="input-group" style="width: 150px;">
+
+
+<title>Categories</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Credit Report</h3>
+						<div class="box-tools">
+							<!--  <div class="input-group" style="width: 150px;">
                     	<a class="btn btn-sm btn-default" th:href="@{/credit_management/new}"><i class="fa fa-plus-circle"></i> New Credit Transaction</a>
                     </div> -->
-                  </div>
-                </div><!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-             <!--      <table  id="example" class="table table-hover">
+						</div>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body table-responsive no-padding">
+						<!--      <table  id="example" class="table table-hover">
                -->
-     
-     <table id="example" class="display" style="width:100%">
-        <thead>
-            <tr>
-            	<th>Credit Voucher Id</th>
+
+						<table id="example" class="display" style="width: 100%">
+							<thead>
+								<tr>
+									<!-- 	<th>Credit Voucher Id</th>
+            	<th>User Id</th> -->
+									<th>Customer Name</th>
+									<th>Amount</th>
+									<th>Transaction Date</th>
+									<!--   <th>Money Taker</th> -->
+
+									<!--  <th>Source</th>
+                <th>Transaction Status</th> -->
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="cr,iterStat : ${creditList}">
+									<!-- <td th:text="${cr.crTransactionId}"></td>
+             	<td th:text="${cr.crTransactionUserId}"></td> -->
+									<td th:text="${cr.crTransactionMoneyGiver}"></td>
+									<td th:text="${cr.crTransactionAmount}"></td>
+
+									<!--                 <td th:text="${cr.crTransactionMoneyTaker}"></td>
+ -->
+									<td th:text="${cr.crTransactionDate}"></td>
+									<!--  <td th:text="${cr.crTransactionSourceName}"></td>
+                <td th:text='${cr.crTransactionPassed == 1 ? "Passed": cr.crTransactionPassed == 0 ? "Pending":"Rejected" }'></td> -->
+									<td>
+										<!--  <a href="javascript:void(0)"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;
+                <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" ><i class="fas fa-trash"></i></a>&nbsp;&nbsp; -->
+										<a sec:authorize="@permissionSecurityService.hasPrivilege('CREDIT_UPDATE')" th:id="${cr.crTransactionId}"
+										th:onclick='showTransactionData(this)' data-toggle="modal"
+										data-target="#myModal"><i
+											class="fa fa-external-link-square"></i></a>
+
+									</td>
+
+
+
+
+								</tr>
+
+							</tbody>
+							<tfoot>
+								<tr>
+									<!-- <th>Credit Voucher Id</th>
             	<th>User Id</th>
-                <th>Given Amount</th>
-                <th>Customer Name</th>
-              <!--   <th>Money Taker</th> -->
-                <th>Transaction Date</th>
-                <th>Source</th>
-                <th>Transaction Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-             <tr th:each="cr,iterStat : ${creditList}">
-             	<td th:text="${cr.crTransactionId}"></td>
-             	<td th:text="${cr.crTransactionUserId}"></td>
-                <td th:text="${cr.crTransactionAmount}"></td>
-                <td th:text="${cr.crTransactionMoneyGiver}"></td>
-<!--                 <td th:text="${cr.crTransactionMoneyTaker}"></td>
- -->                <td th:text="${cr.crTransactionDate}"></td>
-                <td th:text="${cr.crTransactionSourceName}"></td>
-                <td th:text='${cr.crTransactionPassed == 1 ? "Passed": cr.crTransactionPassed == 0 ? "Pending":"Rejected" }'></td>
-                <td>
-                
-                <a href="javascript:void(0)"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;
-                <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" ><i class="fas fa-trash"></i></a>&nbsp;&nbsp;
-                <a href="javascript:void(0)" onclick='showTransactionData(this)' data-toggle="modal" data-target="#myModal" ><i class="fa fa-external-link-square"></i></a>
-                
-                </td>
-                
-                
-                  	
-                  	
-            </tr>
-            
-        </tbody>
-        <tfoot>
-            <tr>
-            	<th>Credit Voucher Id</th>
-            	<th>User Id</th>
-                <th>Given Amount</th>
-                <th>Customer Name</th>
-<!--                 <th>Money Taker</th>
- -->                <th>Transaction Date</th>
-                <th>Source</th>
-                <th>Transaction Status</th>
-                <th>Actions</th>
-            </tr>
-        </tfoot>
-    </table>
-                  
-                  
-             <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Transaction Details</h4>
-      </div>
-      <div class="modal-body">
-       
-          <div class="form-group">
-                      <label>Money Given By</label>
-                      <input type="text" class="form-control" name="crTransactionMoneyGiver" id="crTransactionMoneyGiverPass"  placeholder="Enter Name Of Money Giver" />
- 		  </div>
- 		  
- 		  
- 		  <div class="form-group">
-                      <label>Money Taken By</label>
-                      <input type="text" class="form-control" id="crTransactionMoneyTakerPass" placeholder="Enter Name Of Money Taker" />
-           </div>
-       
-       	   <div class="form-group" >
-                      <label>Payment Mode</label>
-                      <select  class="form-control" placeholder="Enter Name Of Money Taker" id="crTransactionPaymentModePass" >
-                      <option value="cash"> Cash </option>
-                      <option value="cheque"> Cheque </option>
-                       </select>
-                    </div>
-                   
-                    <div class="form-group">
-                      <label>Transaction Description </label>
-                      <textarea class="form-control" id="crTransactionDescriptionPass"> </textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>Transaction Date</label>
-                      <input type="date" class="form-control" id="crTransactionDatePass" />
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>Transaction Amount</label>
-                      <input type="number" class="form-control" id="crTransactionAmountPass" placeholder="Enter Transaction Amount" />
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>Select Source</label>
-                        <select  class="form-control" id="crTransactionSourceNamePass">
-                            <option value="cash"> Cash </option>
-                            <option value="cheque"> Cheque </option>
-                         </select>
-                    </div> 
-                    
-                    <label class="radio-inline">
-      					<input type="radio" name="passStatus" id="passStatusPassed"> Passed </input> 
-    				</label>
-    				<label class="radio-inline">
-      					<input type="radio" name="passStatus" id="passStatusPending"> Pending </input>
-    				</label>
-    				<label class="radio-inline">
-      					<input type="radio" name="passStatus" id="passStatusRejected"> Rejected </input>
-    				</label>            
-       
-       
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>     
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                </div><!-- /.box-body -->
-                
-              </div><!-- /.box -->
-              </div>
-              </div>
-              
-    	</div>
-    	
-   
-   <!-- New Delete  Modal For TransAction -->
-<div id="deleteModal" class="modal fade in" >
-	<div class="modal-dialog modal-confirm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="icon-box">
-					<i class="material-icons"></i>
-				</div>				
-				<h4 class="modal-title">Are you sure?</h4>	
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                -->
+									<th>Customer Name</th>
+									<th>Amount</th>
+									<!--                 <th>Money Taker</th>
+ -->
+									<th>Transaction Date</th>
+									<!-- <th>Source</th>
+                <th>Transaction Status</th> -->
+									<th>Actions</th>
+								</tr>
+							</tfoot>
+						</table>
+
+
+						<!-- Modal -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										<h4 class="modal-title" id="myModalLabel">Transaction
+											Details</h4>
+									</div>
+									<div class="modal-body">
+
+										<div class="form-group">
+											<label>Customer</label> <input type="text"
+												class="form-control" name="crTransactionMoneyGiver"
+												id="crTransactionMoneyGiverPass"
+												placeholder="Enter Name Of Money Giver" />
+										</div>
+
+										<div class="form-group">
+											<label>Transaction Amount</label> <input type="number"
+												class="form-control" id="crTransactionAmountPass"
+												placeholder="Enter Transaction Amount" />
+										</div>
+
+										<div class="form-group">
+											<label>Transaction Date</label> <input type="date"
+												class="form-control" id="crTransactionDatePass" />
+										</div>
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
+										<button type="button" th:onclick="saveCreditEditData()"
+											class="btn btn-primary">Save changes</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+
+
+					</div>
+					<!-- /.box-body -->
+
+				</div>
+				<!-- /.box -->
 			</div>
-			<div class="modal-body">
-				<p>Do you really want to delete these records? This process cannot be undone.</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-info btn-sm mr-2" data-dismiss="modal">Cancel</button>
-				<a href="#" id="deleteTransactionLink" onclick="confirmDelete()" title="Yes"><button type="button" class="btn btn-danger btn-sm">Delete</button></a>
+		</div>
+
+	</div>
+
+
+	<!-- New Delete  Modal For TransAction -->
+	<div id="deleteModal" class="modal fade in">
+		<div class="modal-dialog modal-confirm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="icon-box">
+						<i class="material-icons"></i>
+					</div>
+					<h4 class="modal-title">Are you sure?</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">X</button>
+				</div>
+				<div class="modal-body">
+					<p>Do you really want to delete these records? This process
+						cannot be undone.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info btn-sm mr-2"
+						data-dismiss="modal">Cancel</button>
+					<a href="#" id="deleteTransactionLink" onclick="confirmDelete()"
+						title="Yes"><button type="button"
+							class="btn btn-danger btn-sm">Delete</button></a>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- New Delete  Modal For TransAction Ends Here--> 	
-    </body>
-    
-    <script th:inline="javascript">
+	<!-- New Delete  Modal For TransAction Ends Here-->
+</body>
+
+<script th:inline="javascript">
 			/*<![CDATA[*/
 
-	function showTransactionData(element) {
-		var trasId = $(element).parent().children().eq(0).text();
-		alert('value' + transId);
-		if(creditJson.hasOwnProperty(transId)) {
-			var transObject = creditJson[transId];
-			$('#crTransactionAmountPass').val(transObject.crTransactionAmount);
-			$('#crTransactionMoneyGiverPass').val(transObject.crTransactionMoneyGiver);
-			$('#crTransactionMoneyTakerPass').val(transObject.crTransactionMoneyTaker);
-			$('#crTransactionPaymentModePass').val(transObject.crTransactionPaymentMode);
-			$('#crTransactionDescriptionPass').val(transObject.crTransactionDescription);
-			$('#crTransactionSourceNamePass').val(transObject.crTransactionSourceName);
-		}
-    }			
+
 
 /*]]>*/
 </script>
-    
-    
+
+
 </html>

@@ -201,6 +201,40 @@ public class CreditDetailsHome {
 		log.info("information got"  + respList);
 		return respList;	
 	}
+	
+	public List<DailyBalanceSheet> getDailyBalanceSheetByAccountId(Integer id) {
+		/*String sql = "SELECT SUM(cr_transaction_amount) As totalCreditAmount, cr_transaction_date As transactionDate FROM credit_details cr where cr_transaction_user_id = "+ id +" group by cr.cr_transaction_date";
+		List<DailyBalanceSheet> respList = new ArrayList<>();
+		List<Object> credResp = entityManager.createNativeQuery(sql).getResultList();
+		
+		String debSql =  "SELECT SUM(deb_transaction_amount) As totalDebitAmount, deb_transaction_date As transactionDate FROM debit_details deb where deb_transaction_user_id = "+ id +" group by deb.deb_transaction_date";
+		List<Object> debResp = entityManager.createNativeQuery(debSql).getResultList();*/
+		
+		String sql = "select date1 As transactionDate, sum(case when type='debit_spend' then deb_amount else 0 end) as totalDebitAmount,\n" + 
+				"sum(case when type='credit_spend' then deb_amount else 0 end) as totalCreditAmount\n" + 
+				"from\n" + 
+				"(\n" + 
+				"select deb_transaction_date as date1 ,deb_transaction_amount as deb_amount,'debit_spend' as type from debit_details where deb_transaction_account_id =" +id +" \n" + 
+				"union all\n" + 
+				"select cr_transaction_date as date1,cr_transaction_amount as credit_amount,'credit_spend' as type from credit_details where cr_transacion_source_id =" +id +  " \n"+
+				") as a \n" + 
+				"group by date1;";
+		List<DailyBalanceSheet> respList = new ArrayList<>();
+		List<Object> credDebResp = entityManager.createNativeQuery(sql).getResultList();
+		
+		for(Object obj : credDebResp) {
+			Object[] obj1 = (Object[]) obj;
+			DailyBalanceSheet dbsheet = new DailyBalanceSheet();
+			dbsheet.setTotalCreditAmount((double) obj1[2]);
+			dbsheet.setTransactionDate((Date) obj1[0]);
+			dbsheet.setTotalDebitAmount((double) obj1[1]);
+			dbsheet.setBalance(dbsheet.getTotalCreditAmount() - dbsheet.getTotalDebitAmount());
+			dbsheet.setUserId(id);
+			respList.add(dbsheet);
+		}
+		log.info("information got"  + respList);
+		return respList;	
+	}
 
 	public List<DailyBalanceSheet> getDailyBalanceSheetBySourceId(Integer id, int sourceId, String sourceName) {
 		String sql = "select date1 As transactionDate, sum(case when type='debit_spend' then deb_amount else 0 end) as totalDebitAmount,\n" + 

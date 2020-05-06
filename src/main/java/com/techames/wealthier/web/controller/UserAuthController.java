@@ -32,13 +32,13 @@ public class UserAuthController extends JCartAdminBaseController
 {
 	private static final String viewPrefix = "public/";
 
-	private static final String ERROR_INVALID_PASSWORD_RESET_REQUEST = null;
+	private static final String ERROR_INVALID_PASSWORD_RESET_REQUEST = "error.invalid_password_reset_request";
 
-	private static final String INFO_PASSWORD_UPDATED_SUCCESS = null;
+	private static final String INFO_PASSWORD_UPDATED_SUCCESS = "info.password_updated_success";
 
-	private static final String ERROR_PASSWORD_CONF_PASSWORD_MISMATCH = null;
+	private static final String ERROR_PASSWORD_CONF_PASSWORD_MISMATCH = "error.password_conf_password_mismatch";
 
-	private static final String INFO_PASSWORD_RESET_LINK_SENT = null;
+	private static final String INFO_PASSWORD_RESET_LINK_SENT = "info.password_reset_link_sent";
 	
 	@Autowired protected SecurityService securityService;
 	//@Autowired protected EmailService emailService;
@@ -132,7 +132,7 @@ public class UserAuthController extends JCartAdminBaseController
 
 	        // Create the HTML body using Thymeleaf
 	        final String htmlContent = this.templateEngine.process("forgot-password-email", ctx);
-	        
+	        log.info("htmlContent {} ", htmlContent);
 			//emailService.sendEmail(email, getMessage(LABEL_PASSWORD_RESET_EMAIL_SUBJECT), htmlContent);
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
